@@ -1,12 +1,11 @@
 #include "../imports.hpp"
 using namespace std;
 
-vector<pair<int, int>> cr = {{-1, 1}, {1, -1}, {-1, 1}, {1, -1}};
-vector<pair<int, int>> cc = {{-1, 1}, {1, -1}, {1, -1}, {-1, 1}};
-
 int partTwo(){
     ifstream fin("input.txt");
     // ifstream fin("specinput.txt");
+    vector<pair<int, int>> cr = {{-1, 1}, {1, -1}, {-1, 1}, {1, -1}};
+    vector<pair<int, int>> cc = {{-1, 1}, {1, -1}, {1, -1}, {-1, 1}};
     vector<string> grid;
     string s;
     while (fin >> s){
@@ -35,32 +34,31 @@ int partTwo(){
     return ans;
 }
 
-bool good(int r, int c, const vector<string>& grid){
-    return r >= 0 || r < grid.size() || c >= 0 || c < grid[0].size();
-}
-
-vector<int> dr = {-1, -1, -1, 0, 0, 1, 1, 1};
-vector<int> dc = {-1, 0, 1, -1, 1, -1, 0, 1};
-
-void search(int r, int c, const vector<string>& grid, unordered_map<int, char>& next, long long& ans){
-    for (int i = 0; i < 8; ++i){
-        int len = 1;
-        int nr = r, nc = c;
-        bool flag = true;
-        for (int j = 0; j < 3; ++j){
-            nr += dr[i];
-            nc += dc[i];
-            if (!good(nr, nc, grid) || grid[nr][nc] != next[len]){
-                flag = false;
-                break;
-            }
-            ++len;
-        }
-        ans += flag;
-    }
-}
-
 int partOne(){
+    vector<int> dr = {-1, -1, -1, 0, 0, 1, 1, 1};
+    vector<int> dc = {-1, 0, 1, -1, 1, -1, 0, 1};
+    auto good = [](int r, int c, const vector<string>& grid){
+        return r >= 0 || r < grid.size() || c >= 0 || c < grid[0].size();
+    };
+
+    auto search = [good, dr, dc](int r, int c, const vector<string>& grid, unordered_map<int, char>& next, long long& ans){
+        for (int i = 0; i < 8; ++i){
+            int len = 1;
+            int nr = r, nc = c;
+            bool flag = true;
+            for (int j = 0; j < 3; ++j){
+                nr += dr[i];
+                nc += dc[i];
+                if (!good(nr, nc, grid) || grid[nr][nc] != next[len]){
+                    flag = false;
+                    break;
+                }
+                ++len;
+            }
+            ans += flag;
+        }
+    };
+    
     ifstream fin("input.txt");
     // ifstream fin("specinput.txt");
     vector<string> grid;
