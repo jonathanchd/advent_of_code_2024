@@ -29,7 +29,6 @@ while r > 0:
         continue
     dif = inp[idx][1] - inp[r][1]
     inp[idx], inp[r] = inp[r], ('empty', inp[r][1])
-    prevPos = idx
     if dif > 0:
         if inp[idx + 1][0] == 'empty':
             inp[idx + 1] = ('empty', inp[idx + 1][1] + dif)
