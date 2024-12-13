@@ -1,11 +1,9 @@
 import sys
 from sympy import symbols, Eq, solve
 from sympy.core.numbers import Rational
-import sympy
+
 infile = sys.argv[1]
 D = open(infile).read().strip()
-
-    
 
 lines = D.split('\n\n')
 ans = 0
