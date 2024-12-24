@@ -40,6 +40,6 @@ while dq:
     else:  
         vars[assign] = vars[a] ^ vars[b]
     
-ans = sorted([(var, val) for var, val in vars.items() if var[0] == 'z' ])
+ans = sorted([(var, val) for var, val in vars.items() if var[0] == 'z'])
 ans = ''.join([str(val) for var, val in ans])[::-1]
 print(int(ans, 2))
